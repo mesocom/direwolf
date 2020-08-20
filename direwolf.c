@@ -741,7 +741,10 @@ int main (int argc, char *argv[])
  * It is the range of the digital sound representation.
 */
 	gen_tone_init (&audio_config, audio_amplitude, 0);
-	morse_init (&audio_config, audio_amplitude);
+	// KM4YHI-MORSE START
+	//morse_init (&audio_config, audio_amplitude);
+	morse_init (&audio_config, morse_audio_amplitude, morse_frequency);
+	// KM4YHI-MORSE END
 
 	assert (audio_config.adev[0].bits_per_sample == 8 || audio_config.adev[0].bits_per_sample == 16);
 	assert (audio_config.adev[0].num_channels == 1 || audio_config.adev[0].num_channels == 2);

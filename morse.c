@@ -52,7 +52,11 @@
  * Good enough for now.
  */
 
-#define MORSE_TONE 800
+// KM4YHI-MORSE START
+// Adds control of Morse code amplitude and frequency
+//#define MORSE_TONE 800
+static int morse_freq = 800;
+// KM4YHI-MORSE END
 
 #define TIME_UNITS_TO_MS(tu,wpm)  (((tu)*1200.0)/(wpm))
 
@@ -172,13 +176,16 @@ static short sine_table[256];
  *----------------------------------------------------------------*/
 
 
-int morse_init (struct audio_s *audio_config_p, int amp)  
+int morse_init (struct audio_s *audio_config_p, int amp, int input_morse_freq)  
 {
 	int j;
 	
 /* 
  * Save away modem parameters for later use. 
  */
+
+	// KM4YHI-MORSE START
+	morse_freq = input_morse_freq;
 
 	save_audio_config_p = audio_config_p;
 	
@@ -316,7 +323,7 @@ static void morse_tone (int chan, int tu, int wpm) {
 
 	tone_phase = 0;
 
-	f1_change_per_sample = (int) (((double)MORSE_TONE * TICKS_PER_CYCLE / (double)save_audio_config_p->adev[a].samples_per_sec ) + 0.5);
+	f1_change_per_sample = (int) (((double)morse_freq * TICKS_PER_CYCLE / (double)save_audio_config_p->adev[a].samples_per_sec ) + 0.5);
 
 	nsamples = (int) ((TIME_UNITS_TO_MS(tu,wpm) * (float)save_audio_config_p->adev[a].samples_per_sec / 1000.) + 0.5);
 

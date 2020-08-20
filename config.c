@@ -5007,6 +5007,11 @@ static int beacon_options(char *cmd, struct beacon_s *b, int line, struct audio_
 	b->tone = G_UNKNOWN;
 	b->offset = G_UNKNOWN;
 
+	// KM4YHI-MORSE START
+	b->morse_freq = 800;
+	b->morse_amp = 100;
+	// KM4YHI-MORSE END
+
 	while ((t = split(NULL,0)) != NULL) {
 
 	  char keyword[20];
@@ -5194,6 +5199,14 @@ static int beacon_options(char *cmd, struct beacon_s *b, int line, struct audio_
 	  else if (strcasecmp(keyword, "MESSAGING") == 0) {
 	    b->messaging = atoi(value);
 	  }
+	  // KM4YHI-MORSE START
+	  else if (strcasecmp(keyword, "MORSEAMP") == 0) {
+	  	b->morse_amp = atoi(value);
+	  }
+	  else if (strcasecmp(keyword, "MORSEFREQ") == 0) {
+	  	b->morse_freq = atoi(value);
+	  }
+	  // KM4YHI-MORSE END
 	  else {
 	    text_color_set(DW_COLOR_ERROR);
 	    dw_printf ("Config file, line %d: Invalid option keyword, %s.\n", line, keyword);

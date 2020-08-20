@@ -193,6 +193,11 @@ struct misc_config_s {
 	  char *comment;	/* Comment or NULL. */
 	  char *commentcmd;	/* Command to append more to Comment or NULL. */
 
+	  // KM4YHI-MORSE START
+	  int morse_amp;
+	  int morse_freq;
+	  // KM4YHI-MORSE END
+
 
 	} beacon[MAX_BEACONS];
 
